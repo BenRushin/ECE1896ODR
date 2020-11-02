@@ -1,6 +1,6 @@
 #include "DriveEncoderHandler.h"
-#define CLICKS_PER_REVOLUTION 1;
-#define WHEEL_CIRCUMFERENCE 1;
+#define CLICKS_PER_REVOLUTION 1
+#define WHEEL_CIRCUMFERENCE 1
 
 DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL, uint8_t p_RE, uint8_t p_LE){
 	pin_FR=p_FR;
@@ -31,8 +31,6 @@ DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_B
 	previous_FL=digitalRead(pin_FL);
 	previous_BR=digitalRead(pin_BR);
 	previous_BL=digitalRead(pin_BL);
-	attachInterrupt(digitalPinToInterrupt(pin_RE,rightInterrupt,CHANGE);
-	attachInterrupt(digitalPinToInterrupt(pin_LE,leftInterrupt,CHANGE);
 	previous_time=millis();
 }
 void DriveEncoderHandler::update(){

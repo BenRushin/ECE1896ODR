@@ -30,11 +30,11 @@ class DriveEncoderHandler{
     //long last_encoder_count_FL;
     //long last_encoder_count_BR;
     //long last_encoder_count_BL;
-	uint8_t pin_FR;
-	uint8_t pin_FL;
-	uint8_t pin_BR;
-	uint8_t pin_BL;
-	uint8_t pin_RE;
-	uint8_t pin_LE;
+  	uint8_t pin_FR;
+  	uint8_t pin_FL;
+  	uint8_t pin_BR;
+  	uint8_t pin_BL;
+  	uint8_t pin_RE;
+  	uint8_t pin_LE;
 };
 #endif

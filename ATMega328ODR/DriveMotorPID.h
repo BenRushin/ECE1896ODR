@@ -5,7 +5,7 @@
 typedef double (* encoderSpeed)();
 class DriveMotorPID{
 	public:
-		DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f encoderSpeed es, Adafruit_MCP23017 mcp_c);
+		DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f, encoderSpeed es, Adafruit_MCP23017 mcp_c);
 		void update();
 		void setVelocity(double velocity);
 		void setBrakes(bool brake);

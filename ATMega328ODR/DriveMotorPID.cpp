@@ -3,7 +3,7 @@
 #define KI 0.1
 #define KD 0
 
-DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f encoderSpeed es, Adafruit_MCP23017 mcp_c){
+DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f, encoderSpeed es, Adafruit_MCP23017 mcp_c){
 	getSpeed = es;
 	mcp = mcp_c;
 	clock_wise=CW_i_f;
@@ -16,7 +16,7 @@ DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool
 	last_error=0;
 	cumulative_error=0;
 	set_speed=0;
-	kp=KP
+	kp=KP;
 	ki=KI;
 	kd=KD;
 }
@@ -25,7 +25,7 @@ void DriveMotorPID::update(){
 	double delta_t = millis()-previous_time;
 	error=set_speed-getSpeed();
 	cumulative_error +=error;
-	double d_error=error_last_error;
+	double d_error=error-last_error;
 	double speed=set_speed*kp+cumulative_error*ki+d_error*kd;
 	previous_time=millis();
 	analogWrite(pwm_pin,speed);
@@ -39,28 +39,28 @@ void DriveMotorPID::setVelocity(double velocity){
 void DriveMotorPID::setBrakes(bool brake){
 	braking=brake;
 	if(braking){
-		mcp.digitalWrite(mcp_p1,HIGH);
-		mcp.digitalWrite(mcp_p2,HIGH);
+		mcp.digitalWrite(mcp_pin_c1,HIGH);
+		mcp.digitalWrite(mcp_pin_c2,HIGH);
 	}
 	else{
 		if(clock_wise){
-			mcp.digitalWrite(mcp_p1,LOW);
-			mcp.digitalWrite(mcp_p2,HIGH);
+			mcp.digitalWrite(mcp_pin_c1,LOW);
+			mcp.digitalWrite(mcp_pin_c2,HIGH);
 		}
 		else{
-			mcp.digitalWrite(mcp_p1,HIGH);
-			mcp.digitalWrite(mcp_p2,LOW);
+			mcp.digitalWrite(mcp_pin_c1,HIGH);
+			mcp.digitalWrite(mcp_pin_c2,LOW);
 		}
 	}
 }
 void DriveMotorPID::setDirection(bool forward){
 	clock_wise = (forward == CW_is_forward);
 	if(clock_wise){
-		mcp.digitalWrite(mcp_p1,LOW);
-		mcp.digitalWrite(mcp_p2,HIGH);
+		mcp.digitalWrite(mcp_pin_c1,LOW);
+		mcp.digitalWrite(mcp_pin_c2,HIGH);
 	}
 	else{
-		mcp.digitalWrite(mcp_p1,HIGH);
-		mcp.digitalWrite(mcp_p2,LOW);
+		mcp.digitalWrite(mcp_pin_c1,HIGH);
+		mcp.digitalWrite(mcp_pin_c2,LOW);
 	}
 }
