@@ -3,31 +3,38 @@
 #include <Arduino.h>
 class DriveEncoderHandler{
   public:
-    DriveEncoderHandler(int FR_pin, int FL_pin, int BR_pin, int BL_pin);
-    static void update();
-    static void rightInterrupt();
-    static void leftInterrupt();
-    static double getFrontRightSpeed();
-    static double getFrontLeftSpeed();
-    static double getBackRightSpeed();
-    static double getBackLeftSpeed();
+    DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL, uint8_t p_RE, uint8_t p_LE);
+    void update();
+    void rightInterrupt();
+    void leftInterrupt();
+    double getFrontRightSpeed();
+    double getFrontLeftSpeed();
+    double getBackRightSpeed();
+    double getBackLeftSpeed();
   private:
-    static void resetCounts();
-    static double speed_FR;
-    static double speed_FL;
-    static double speed_BR;
-    static double speed_BL;
-    static unsigned long previous_time;
-    static bool previous_FR;
-    static bool previous_FL;
-    static bool previous_BR;
-    static bool previous_BL;
-    static long encoder_count_FR;
-    static long encoder_count_FL;
-    static long encoder_count_BR;
-    static long encoder_count_BL;
-    static long last_encoder_count_FR;
-    static long last_encoder_count_FL;
-    static long last_encoder_count_BR;
-    static long last_encoder_count_BL;
-}
+    //void resetCounts();
+    double speed_FR;
+    double speed_FL;
+    double speed_BR;
+    double speed_BL;
+    unsigned long previous_time;
+    volatile bool previous_FR;
+    volatile bool previous_FL;
+    volatile bool previous_BR;
+    volatile bool previous_BL;
+    volatile long encoder_count_FR;
+    volatile long encoder_count_FL;
+    volatile long encoder_count_BR;
+    volatile long encoder_count_BL;
+    //long last_encoder_count_FR;
+    //long last_encoder_count_FL;
+    //long last_encoder_count_BR;
+    //long last_encoder_count_BL;
+	uint8_t pin_FR;
+	uint8_t pin_FL;
+	uint8_t pin_BR;
+	uint8_t pin_BL;
+	uint8_t pin_RE;
+	uint8_t pin_LE;
+};
+#endif
