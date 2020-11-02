@@ -3,7 +3,7 @@
 #include <Arduino.h>
 class DriveEncoderHandler{
   public:
-    DriveEncoderHandler();
+    DriveEncoderHandler(int FR_pin, int FL_pin, int BR_pin, int BL_pin);
     static void update();
     static void rightInterrupt();
     static void leftInterrupt();
