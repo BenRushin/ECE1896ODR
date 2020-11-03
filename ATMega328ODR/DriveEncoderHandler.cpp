@@ -2,13 +2,11 @@
 #define CLICKS_PER_REVOLUTION 1
 #define WHEEL_CIRCUMFERENCE 1
 
-DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL, uint8_t p_RE, uint8_t p_LE){
+DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL){
 	pin_FR=p_FR;
 	pin_FL=p_FL;
 	pin_BR=p_BR;
 	pin_BL=p_BL;
-	pin_RE=p_RE;
-	pin_LE=p_LE;
 	speed_FR=0;
 	speed_FL=0;
 	speed_BR=0;
@@ -25,8 +23,6 @@ DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_B
 	pinMode(pin_FL,INPUT);
 	pinMode(pin_BR,INPUT);
 	pinMode(pin_BL,INPUT);
-	pinMode(pin_RE,INPUT);
-	pinMode(pin_LE,INPUT);
 	previous_FR=digitalRead(pin_FR);
 	previous_FL=digitalRead(pin_FL);
 	previous_BR=digitalRead(pin_BR);

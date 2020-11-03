@@ -3,7 +3,7 @@
 #include <Arduino.h>
 class DriveEncoderHandler{
   public:
-    DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL, uint8_t p_RE, uint8_t p_LE);
+    DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL);
     void update();
     void rightInterrupt();
     void leftInterrupt();
@@ -34,7 +34,5 @@ class DriveEncoderHandler{
   	uint8_t pin_FL;
   	uint8_t pin_BR;
   	uint8_t pin_BL;
-  	uint8_t pin_RE;
-  	uint8_t pin_LE;
 };
 #endif
