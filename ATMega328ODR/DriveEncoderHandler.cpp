@@ -1,6 +1,6 @@
 #include "DriveEncoderHandler.h"
-#define CLICKS_PER_REVOLUTION 1
-#define WHEEL_CIRCUMFERENCE 1
+#define CLICKS_PER_REVOLUTION 12
+#define WHEEL_CIRCUMFERENCE 188
 
 DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL){
 	pin_FR=p_FR;

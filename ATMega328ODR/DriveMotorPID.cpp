@@ -1,7 +1,5 @@
 #include "DriveMotorPID.h"
-#define KP 1
-#define KI 0.1
-#define KD 0
+
 
 DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f, encoderSpeed es, Adafruit_MCP23017 mcp_c){
 	getSpeed = es;
@@ -16,9 +14,9 @@ DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool
 	last_error=0;
 	cumulative_error=0;
 	set_speed=0;
-	kp=KP;
-	ki=KI;
-	kd=KD;
+  pinMode(pwm_pin,OUTPUT);
+  mcp.pinMode(mcp_pin_c1,OUTPUT);
+  mcp.pinMode(mcp_pin_c2,OUTPUT);
 }
 
 void DriveMotorPID::update(){
@@ -26,7 +24,7 @@ void DriveMotorPID::update(){
 	error=set_speed-getSpeed();
 	cumulative_error +=error;
 	double d_error=error-last_error;
-	double speed=set_speed*kp+cumulative_error*ki+d_error*kd;
+	double speed=set_speed*DriveMotorPID::kp+cumulative_error*DriveMotorPID::ki+d_error*DriveMotorPID::kd;
 	previous_time=millis();
 	analogWrite(pwm_pin,speed);
 }

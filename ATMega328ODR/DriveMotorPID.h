@@ -2,6 +2,10 @@
 #define PID_M_H_
 #include <Arduino.h>
 #include <Adafruit_MCP23017.h>
+
+#define KP 1
+#define KI 0.1
+#define KD 0
 typedef double (* encoderSpeed)();
 class DriveMotorPID{
 	public:
@@ -24,8 +28,8 @@ class DriveMotorPID{
 		double last_error;
 		double cumulative_error;
 		double set_speed;
-		static double kp;
-		static double ki;
-		static double kd;
+		static constexpr  double kp=1;
+		static constexpr  double ki=0.1;
+		static constexpr  double kd=0;
 };
 #endif
