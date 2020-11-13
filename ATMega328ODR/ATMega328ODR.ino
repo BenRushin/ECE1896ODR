@@ -4,7 +4,7 @@
 #include "DriveMotorPID.h"
 
 Adafruit_MCP23017 mcp;
-DriveEncoderHandler deh=DriveEncoderHandler(4,6,8,7);
+DriveEncoderHandler deh=DriveEncoderHandler(A3,A0,A2,A1);
 
 double FRSpeed(){
   return deh.getFrontRightSpeed();
@@ -18,10 +18,10 @@ double BRSpeed(){
 double BLSpeed(){
   return deh.getBackLeftSpeed();
 }
-DriveMotorPID FR_wheel=DriveMotorPID(11, 4, 5, true, FRSpeed, mcp);
-DriveMotorPID FL_wheel=DriveMotorPID(10, 3, 0, false, FLSpeed, mcp);
-DriveMotorPID BR_wheel=DriveMotorPID(5, 1, 2, true, BRSpeed, mcp);
-DriveMotorPID BL_wheel=DriveMotorPID(9, 7, 6, false, BLSpeed, mcp);
+DriveMotorPID FR_wheel=DriveMotorPID(9, 5, 4, true, FRSpeed, mcp);
+DriveMotorPID FL_wheel=DriveMotorPID(6, 1, 0, false, FLSpeed, mcp);
+DriveMotorPID BR_wheel=DriveMotorPID(11, 6, 7, true, BRSpeed, mcp);
+DriveMotorPID BL_wheel=DriveMotorPID(5, 3, 2, false, BLSpeed, mcp);
 void rightInterrupt(){
   deh.rightInterrupt();
 }
@@ -46,6 +46,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  deh.update();
   FR_wheel.update();
   FL_wheel.update();
   BR_wheel.update();
