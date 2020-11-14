@@ -4,6 +4,7 @@
 class DriveEncoderHandler{
   public:
     DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL);
+    void init();
     void update();
     void rightInterrupt();
     void leftInterrupt();

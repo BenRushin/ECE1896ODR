@@ -9,29 +9,38 @@ DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool
 	pwm_pin=pwm_p;
 	mcp_pin_c1=mcp_p1;
 	mcp_pin_c2=mcp_p2;
-	previous_time=millis();
+	previous_time=0;
 	error=0;
 	last_error=0;
 	cumulative_error=0;
 	set_speed=0;
+  
+}
+void DriveMotorPID::init(){
+  previous_time=millis();
   pinMode(pwm_pin,OUTPUT);
   mcp.pinMode(mcp_pin_c1,OUTPUT);
   mcp.pinMode(mcp_pin_c2,OUTPUT);
 }
-
 void DriveMotorPID::update(){
 	double delta_t = millis()-previous_time;
 	error=set_speed-getSpeed();
 	cumulative_error +=error;
 	double d_error=error-last_error;
-	double speed=set_speed*DriveMotorPID::kp+cumulative_error*DriveMotorPID::ki+d_error*DriveMotorPID::kd;
+  last_error=error;
+	double output=set_speed*kp+cumulative_error*ki+d_error*kd;
+  uint8_t pwm = 0;
+  if(output>254){
+    pwm=255;
+  }
+  else{
+    pwm=(uint8_t)output;
+  }
 	previous_time=millis();
-	analogWrite(pwm_pin,speed);
+	analogWrite(pwm_pin,pwm);
 }
 void DriveMotorPID::setVelocity(double velocity){
-	if(velocity>0 != set_speed>0){
-		setDirection(velocity>0);
-	}
+	setDirection(velocity>0);
 	set_speed=abs(velocity);	
 }
 void DriveMotorPID::setBrakes(bool brake){

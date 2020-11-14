@@ -1,6 +1,5 @@
 #include "DriveEncoderHandler.h"
-#define CLICKS_PER_REVOLUTION 12
-#define WHEEL_CIRCUMFERENCE 188
+#define CLICKS_PER_REVOLUTION 540.0
 
 DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_BR, uint8_t p_BL){
 	pin_FR=p_FR;
@@ -19,23 +18,26 @@ DriveEncoderHandler::DriveEncoderHandler(uint8_t p_FR, uint8_t p_FL, uint8_t p_B
 	//last_encoder_count_FL=0;
 	//last_encoder_count_BR=0;
 	//last_encoder_count_BL=0;
-	pinMode(pin_FR,INPUT);
-	pinMode(pin_FL,INPUT);
-	pinMode(pin_BR,INPUT);
-	pinMode(pin_BL,INPUT);
-	previous_FR=digitalRead(pin_FR);
-	previous_FL=digitalRead(pin_FL);
-	previous_BR=digitalRead(pin_BR);
-	previous_BL=digitalRead(pin_BL);
-	previous_time=millis();
+}
+void DriveEncoderHandler::init(){
+  pinMode(pin_FR,INPUT);
+  pinMode(pin_FL,INPUT);
+  pinMode(pin_BR,INPUT);
+  pinMode(pin_BL,INPUT);
+  previous_FR=digitalRead(pin_FR/CLICKS_PER_REVOLUTION);
+  previous_FL=digitalRead(pin_FL)/CLICKS_PER_REVOLUTION;
+  previous_BR=digitalRead(pin_BR)/CLICKS_PER_REVOLUTION;
+  previous_BL=digitalRead(pin_BL)/CLICKS_PER_REVOLUTION;
+  previous_time=millis();  
 }
 void DriveEncoderHandler::update(){
 	noInterrupts();
 	unsigned long delta = previous_time-millis();
-	speed_FR=CLICKS_PER_REVOLUTION*WHEEL_CIRCUMFERENCE*(encoder_count_FR)/delta;
-	speed_FL=CLICKS_PER_REVOLUTION*WHEEL_CIRCUMFERENCE*(encoder_count_FL)/delta;
-	speed_BR=CLICKS_PER_REVOLUTION*WHEEL_CIRCUMFERENCE*(encoder_count_BR)/delta;
-	speed_BL=CLICKS_PER_REVOLUTION*WHEEL_CIRCUMFERENCE*(encoder_count_BL)/delta;
+  double delta_s = (double)delta / 60000.0;
+	speed_FR=(encoder_count_FR/delta);
+	speed_FL=(encoder_count_FL/delta);
+	speed_BR=(encoder_count_BR/delta);
+	speed_BL=(encoder_count_BL/delta);
 	//last_encoder_count_FR=encoder_count_FR;
 	//last_encoder_count_FL=encoder_count_FL;
 	//last_encoder_count_BR=encoder_count_BR;

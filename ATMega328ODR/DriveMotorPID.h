@@ -10,6 +10,7 @@ typedef double (* encoderSpeed)();
 class DriveMotorPID{
 	public:
 		DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool CW_i_f, encoderSpeed es, Adafruit_MCP23017 mcp_c);
+    void init();
 		void update();
 		void setVelocity(double velocity);
 		void setBrakes(bool brake);
@@ -28,8 +29,8 @@ class DriveMotorPID{
 		double last_error;
 		double cumulative_error;
 		double set_speed;
-		static constexpr  double kp=1;
-		static constexpr  double ki=0.1;
-		static constexpr  double kd=0;
+		static constexpr double kp=1.8;
+		static constexpr double ki=0.1;
+		static constexpr double kd=0;
 };
 #endif
