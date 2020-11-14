@@ -21,6 +21,8 @@ void DriveMotorPID::init(){
   pinMode(pwm_pin,OUTPUT);
   mcp.pinMode(mcp_pin_c1,OUTPUT);
   mcp.pinMode(mcp_pin_c2,OUTPUT);
+  mcp.digitalWrite(mcp_pin_c1,LOW);
+  mcp.digitalWrite(mcp_pin_c2,HIGH);
 }
 void DriveMotorPID::update(){
 	double delta_t = millis()-previous_time;

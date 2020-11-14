@@ -31,6 +31,7 @@ void leftInterrupt() {
 
 
 void setup() {
+  Serial.begin(9600);
   attachInterrupt(digitalPinToInterrupt(2), rightInterrupt, CHANGE);
   attachInterrupt(digitalPinToInterrupt(3), leftInterrupt, CHANGE);
   mcp.begin();
@@ -44,6 +45,8 @@ void setup() {
   BR_wheel.setVelocity(100);
   BL_wheel.setVelocity(100);
   pinMode(10, OUTPUT);
+  Serial.println("Go!");
+  delay(100);
 }
 
 void loop() {
@@ -54,4 +57,5 @@ void loop() {
   BR_wheel.update();
   BL_wheel.update();
   analogWrite(10,255);
+  Serial.println("tick");
 }
