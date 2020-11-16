@@ -10,7 +10,7 @@ DriveMotorPID::DriveMotorPID(uint8_t pwm_p, uint8_t mcp_p1, uint8_t mcp_p2, bool
 	mcp_pin_c1=mcp_p1;
 	mcp_pin_c2=mcp_p2;
 	previous_time=0;
-	error=0;
+	error=0;  
 	last_error=0;
 	cumulative_error=0;
 	set_speed=0;
@@ -53,7 +53,7 @@ void DriveMotorPID::setVelocity(double velocity){
   if(velocity>0 != forward_previous){
     waited=false;
     analogWrite(pwm_pin,0);
-    delayMicroseconds(10);
+    delay(100);
   }
   setDirection(velocity>0);
   set_speed=abs(velocity);
