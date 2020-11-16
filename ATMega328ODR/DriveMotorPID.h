@@ -21,6 +21,8 @@ class DriveMotorPID{
 		bool clock_wise;
 		bool CW_is_forward;
 		bool braking;
+    bool forward_previous;
+    bool waited;
 		uint8_t pwm_pin;
 		uint8_t mcp_pin_c1;
 		uint8_t mcp_pin_c2;
