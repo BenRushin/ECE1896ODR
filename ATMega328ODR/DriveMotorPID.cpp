@@ -52,6 +52,9 @@ void DriveMotorPID::update(){
 void DriveMotorPID::setVelocity(double velocity){
   if(velocity>0 != forward_previous){
     waited=false;
+    error=0;
+    cumulative_error=0;
+    last_error=0;
     analogWrite(pwm_pin,0);
   }
   setDirection(velocity>0);

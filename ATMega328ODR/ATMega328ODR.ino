@@ -1,4 +1,4 @@
-#include <Adafruit_MCP23017.h>
+  #include <Adafruit_MCP23017.h>
 
 #include "DriveEncoderHandler.h"
 #include "DriveMotorPID.h"
@@ -15,6 +15,7 @@ unsigned long dur3=0;
 unsigned long dur4=0;
 unsigned long dur=0;
 int inches=0;
+bool go = true;
 double FRSpeed() {
   return deh.getFrontRightSpeed();
 }
@@ -44,6 +45,12 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(3), leftInterrupt, CHANGE);
   mcp.begin();
   deh.init();
+  mcp.pinMode(8, OUTPUT);
+  mcp.pinMode(9, OUTPUT);
+  mcp.pinMode(6,OUTPUT);
+  mcp.pinMode(7,OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, INPUT);
   FR_wheel.init();
   FL_wheel.init();
   BR_wheel.init();
@@ -95,16 +102,10 @@ void loop() {
   dur = min(min(dur1,dur2),min(dur3,dur4));
   inches = dur / 74 /2;
   if(inches<=6){
-    FR_wheel.setBrakes(true);
-    FL_wheel.setBrakes(true);
-    BR_wheel.setBrakes(true);
-    BL_wheel.setBrakes(true);
+    go=false;
   }
   else{
-    FR_wheel.setBrakes(false);
-    FL_wheel.setBrakes(false);
-    BR_wheel.setBrakes(false);
-    BL_wheel.setBrakes(false);
+    go=true;
   }
   
   counter++;
@@ -113,14 +114,17 @@ void loop() {
     FL_wheel.setVelocity(v);
     BR_wheel.setVelocity(v);
     BL_wheel.setVelocity(v);
-    v=min(v+1,10);
+    if(go){
+      v=min(v+1,10);
+    }
+    else{
+      v=0;
+    }
   }
   FR_wheel.update();
   FL_wheel.update();
   BR_wheel.update();
   BL_wheel.update();
   deh.update();
-  int j = (int)deh.getFrontRightSpeed();
-  
-  delay(5);
+
 }
