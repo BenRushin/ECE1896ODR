@@ -38,7 +38,109 @@ void rightInterrupt() {
 void leftInterrupt() {
   deh.leftInterrupt();
 }
+void go_forward(){
+  digitalWrite(9,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(5,LOW);
+  delay(10);
+  mcp.digitalWrite(4,HIGH);
+  mcp.digitalWrite(5, LOW);
+  mcp.digitalWrite(1,HIGH);
+  mcp.digitalWrite(0,LOW);
+  mcp.digitalWrite(6,HIGH);
+  mcp.digitalWrite(7,LOW);
+  mcp.digitalWrite(2,HIGH);
+  mcp.digitalWrite(3,LOW);
+  delay(10);
+  digitalWrite(9,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(11,HIGH);
+  digitalWrite(5,HIGH);
+}
+void go_backwards(){
+  digitalWrite(9,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(5,LOW);
+  delay(10);
+  mcp.digitalWrite(4,LOW);
+  mcp.digitalWrite(5,HIGH);
+  mcp.digitalWrite(1,LOW);
+  mcp.digitalWrite(0,HIGH);
+  mcp.digitalWrite(6,LOW);
+  mcp.digitalWrite(7,HIGH);
+  mcp.digitalWrite(2,LOW);
+  mcp.digitalWrite(3,HIGH);
+  delay(10);
+  digitalWrite(9,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(11,HIGH);
+  digitalWrite(5,HIGH);
+}
 
+void go_right(){
+  digitalWrite(9,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(5,LOW);
+  delay(10);
+  mcp.digitalWrite(4,HIGH);
+  mcp.digitalWrite(5,LOW);
+  mcp.digitalWrite(1,HIGH);
+  mcp.digitalWrite(0,LOW);
+  mcp.digitalWrite(6,LOW);
+  mcp.digitalWrite(7,HIGH);
+  mcp.digitalWrite(2,LOW);
+  mcp.digitalWrite(3,HIGH);
+  delay(10);
+  digitalWrite(9,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(11,HIGH);
+  digitalWrite(5,HIGH);
+}
+void go_left(){
+  digitalWrite(9,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(5,LOW);
+  delay(10);
+  mcp.digitalWrite(4,LOW);
+  mcp.digitalWrite(5,HIGH);
+  mcp.digitalWrite(1,LOW);
+  mcp.digitalWrite(0,HIGH);
+  mcp.digitalWrite(6,HIGH);
+  mcp.digitalWrite(7,LOW);
+  mcp.digitalWrite(2,HIGH);
+  mcp.digitalWrite(3,LOW);
+  delay(10);
+  digitalWrite(9,HIGH);
+  digitalWrite(6,HIGH);
+  digitalWrite(11,HIGH);
+  digitalWrite(5,HIGH);
+}
+void stop_now(){
+  digitalWrite(9,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(11,LOW);
+  digitalWrite(5,LOW);
+}
+void manual_init(){
+pinMode(9, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(5, OUTPUT);
+  mcp.pinMode(5, OUTPUT);
+  mcp.pinMode(4, OUTPUT);
+  mcp.pinMode(1, OUTPUT);
+  mcp.pinMode(0,OUTPUT);
+  mcp.pinMode(6, OUTPUT);
+  mcp.pinMode(7, OUTPUT);
+  mcp.pinMode(3, OUTPUT);
+  mcp.pinMode(2, OUTPUT);
+  mcp.pinMode(8, OUTPUT);
+  mcp.pinMode(9, OUTPUT);
+}
 void setup() {
   attachInterrupt(digitalPinToInterrupt(2), rightInterrupt, CHANGE);
   attachInterrupt(digitalPinToInterrupt(3), leftInterrupt, CHANGE);
@@ -57,6 +159,7 @@ void setup() {
   delay(100);
   //go_forward();
 }
+
 void loop() {
   // put your main code here, to run repeatedly:
   /*mcp.digitalWrite(8, LOW);
