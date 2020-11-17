@@ -32,7 +32,7 @@ class DriveMotorPID{
 		double cumulative_error;
 		double set_speed;
 		static constexpr double kp=1.8;
-		static constexpr double ki=0.1;
+		static constexpr double ki=0;//.1;
 		static constexpr double kd=0;
 };
 #endif

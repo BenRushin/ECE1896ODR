@@ -8,7 +8,7 @@ Adafruit_MCP23017 mcp;
 DriveEncoderHandler deh = DriveEncoderHandler(A3, A0, A2, A1);
 StepperMotorControl SMC = StepperMotorControl(7,4,8,10);
 int counter = 0;
-int v=0;
+double v=0;
 unsigned long dur1=0;
 unsigned long dur2=0;
 unsigned long dur3=0;
@@ -29,8 +29,8 @@ double BLSpeed() {
 }
 DriveMotorPID FR_wheel = DriveMotorPID(9, 5, 4, true, FRSpeed, mcp);
 DriveMotorPID FL_wheel = DriveMotorPID(6, 1, 0, false, FLSpeed, mcp);
-DriveMotorPID BR_wheel = DriveMotorPID(11, 6, 7, true, BRSpeed, mcp);
-DriveMotorPID BL_wheel = DriveMotorPID(5, 3, 2, false, BLSpeed, mcp);
+DriveMotorPID BR_wheel = DriveMotorPID(11, 7, 6, true, BRSpeed, mcp);
+DriveMotorPID BL_wheel = DriveMotorPID(5, 2, 3, false, BLSpeed, mcp);
 
 void rightInterrupt() {
   deh.rightInterrupt();
@@ -44,22 +44,15 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(3), leftInterrupt, CHANGE);
   mcp.begin();
   deh.init();
-  
   FR_wheel.init();
   FL_wheel.init();
   BR_wheel.init();
   BL_wheel.init();
-  //FR_wheel.setVelocity(100);
-  //FL_wheel.setVelocity(100);
-  //BR_wheel.setVelocity(100);
-  //BL_wheel.setVelocity(100);
-  //manual_init();
   delay(100);
-  //go_forward();
 }
 void loop() {
   // put your main code here, to run repeatedly:
-  /*mcp.digitalWrite(8, LOW);
+  mcp.digitalWrite(8, LOW);
   mcp.digitalWrite(9, LOW);
   digitalWrite(12, LOW);
   delayMicroseconds(2);
@@ -102,25 +95,32 @@ void loop() {
   dur = min(min(dur1,dur2),min(dur3,dur4));
   inches = dur / 74 /2;
   if(inches<=6){
-    stop_now();
+    FR_wheel.setBrakes(true);
+    FL_wheel.setBrakes(true);
+    BR_wheel.setBrakes(true);
+    BL_wheel.setBrakes(true);
   }
   else{
-    go_forward();
+    FR_wheel.setBrakes(false);
+    FL_wheel.setBrakes(false);
+    BR_wheel.setBrakes(false);
+    BL_wheel.setBrakes(false);
   }
   
-  delay(5);*/
   counter++;
   if(counter%10==0){
     FR_wheel.setVelocity(v);
     FL_wheel.setVelocity(v);
     BR_wheel.setVelocity(v);
     BL_wheel.setVelocity(v);
-    v++;
+    v=min(v+1,10);
   }
   FR_wheel.update();
   FL_wheel.update();
   BR_wheel.update();
   BL_wheel.update();
   deh.update();
+  int j = (int)deh.getFrontRightSpeed();
+  
   delay(5);
 }

@@ -24,20 +24,20 @@ void DriveEncoderHandler::init(){
   pinMode(pin_FL,INPUT);
   pinMode(pin_BR,INPUT);
   pinMode(pin_BL,INPUT);
-  previous_FR=digitalRead(pin_FR/CLICKS_PER_REVOLUTION);
-  previous_FL=digitalRead(pin_FL)/CLICKS_PER_REVOLUTION;
-  previous_BR=digitalRead(pin_BR)/CLICKS_PER_REVOLUTION;
-  previous_BL=digitalRead(pin_BL)/CLICKS_PER_REVOLUTION;
+  previous_FR=digitalRead(pin_FR);
+  previous_FL=digitalRead(pin_FL);
+  previous_BR=digitalRead(pin_BR);
+  previous_BL=digitalRead(pin_BL);
   previous_time=millis();  
 }
 void DriveEncoderHandler::update(){
 	noInterrupts();
 	unsigned long delta = previous_time-millis();
   double delta_s = (double)delta / 60000.0;
-	speed_FR=(encoder_count_FR/delta);
-	speed_FL=(encoder_count_FL/delta);
-	speed_BR=(encoder_count_BR/delta);
-	speed_BL=(encoder_count_BL/delta);
+	speed_FR=(encoder_count_FR/delta_s)/CLICKS_PER_REVOLUTION;
+	speed_FL=(encoder_count_FL/delta_s)/CLICKS_PER_REVOLUTION;
+	speed_BR=(encoder_count_BR/delta_s)/CLICKS_PER_REVOLUTION;
+	speed_BL=(encoder_count_BL/delta_s)/CLICKS_PER_REVOLUTION;
 	//last_encoder_count_FR=encoder_count_FR;
 	//last_encoder_count_FL=encoder_count_FL;
 	//last_encoder_count_BR=encoder_count_BR;
